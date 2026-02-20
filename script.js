@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // HEADER SCROLL
     window.addEventListener("scroll", function () {
         const header = document.getElementById("header");
-
         if (window.scrollY > 50) {
             header.classList.add("scrolled");
         } else {
@@ -11,48 +10,36 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ZOOM LUPA
-    const img = document.getElementById("imagenPrincipal");
-    const lupa = document.getElementById("lupa");
+    // Solo activar zoom en desktop
+    if (window.innerWidth > 768) {
 
-    if (img && lupa) {
-        zoomEffect(img, lupa);
-    }
+        const img = document.getElementById("imagenPrincipal");
+        const lupa = document.getElementById("lupa");
 
-    function zoomEffect(img, lupa) {
+        if (img && lupa) {
 
-        // CONFIGURACIÓN INICIAL
-        lupa.style.backgroundImage = "url('" + img.src + "')";
-        lupa.style.backgroundRepeat = "no-repeat";
-        lupa.style.backgroundSize = (img.width * 2) + "px " + (img.height * 2) + "px";
-        lupa.style.opacity = "0";
-        lupa.style.pointerEvents = "none"; // 🔥 evita el parpadeo
+            lupa.style.backgroundImage = "url('" + img.src + "')";
+            lupa.style.backgroundRepeat = "no-repeat";
+            lupa.style.backgroundSize = (img.width * 2) + "px " + (img.height * 2) + "px";
 
-        img.addEventListener("mousemove", moveLupa);
+            img.addEventListener("mousemove", function(e) {
 
-        img.addEventListener("mouseenter", () => {
-            lupa.style.opacity = "1";
-        });
+                const rect = img.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-        img.addEventListener("mouseleave", () => {
-            lupa.style.opacity = "0";
-        });
+                lupa.style.left = (x - 60) + "px";
+                lupa.style.top = (y - 60) + "px";
+                lupa.style.opacity = "1";
 
-        function moveLupa(e) {
-            const rect = img.getBoundingClientRect();
+                lupa.style.backgroundPosition =
+                    "-" + (x * 2 - 60) + "px -" +
+                    (y * 2 - 60) + "px";
+            });
 
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const lupaWidth = lupa.offsetWidth;
-            const lupaHeight = lupa.offsetHeight;
-
-            lupa.style.left = (x - lupaWidth / 2) + "px";
-            lupa.style.top = (y - lupaHeight / 2) + "px";
-
-            lupa.style.backgroundPosition =
-                "-" + (x * 2 - lupaWidth / 2) + "px -" +
-                (y * 2 - lupaHeight / 2) + "px";
+            img.addEventListener("mouseleave", function() {
+                lupa.style.opacity = "0";
+            });
         }
     }
 
