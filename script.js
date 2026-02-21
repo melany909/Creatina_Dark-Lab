@@ -44,3 +44,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+document.getElementById("anio").textContent = new Date().getFullYear();

@@ -107,6 +107,7 @@ section {
 
 section h2 {
     margin-bottom: 20px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 /* MOBILE */
@@ -143,4 +144,39 @@ section h2 {
         font-size: 20px;
     }
 
+}
+
+.beneficios-lista {
+    list-style: none;
+    padding: 0;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+.beneficios-lista li {
+    margin: 12px 0;
+    padding-left: 28px;
+    position: relative;
+}
+
+.beneficios-lista li::before {
+    content: "➜";
+    position: absolute;
+    left: 0;
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.footer {
+    background-color: #111;
+    color: #aaa;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 40px;
+}
+
+.footer p {
+    margin: 0;
 }
